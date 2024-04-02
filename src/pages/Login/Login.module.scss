@@ -1,0 +1,143 @@
+* {
+  box-sizing: border-box;
+}
+.text-danger h1{
+  text-align: center;
+  color: blue($color: #000000);
+}
+.mainContainer {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: -70px;
+
+  .logoContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 30px;
+
+    .logoLeft {
+      display: flex;
+      align-items: center;
+      margin: 0 120px;
+      margin-bottom: 120px;
+
+      img {
+        height: 30vh;
+        width: auto;
+        margin: 0 10px;
+      }
+    }
+
+    .logoRight {
+      display: flex;
+      align-items: center;
+      margin: 0 120px;
+      margin-bottom: 120px;
+
+      img {
+        height: 45%;
+        width: auto;
+        margin: 0 10px;
+      }
+    }
+  }
+
+  .loginContainer {
+    margin-top: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+      color: rgb(31, 216, 31);
+      margin-bottom: 20px;
+    }
+
+    form {
+      width: 300px;
+      .mb-4 {
+        margin-bottom: 20px;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
+
+  .footerContainer {
+    background-color: red;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+      font-size: 20px;
+    }
+
+    @media (max-width: 576px) {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .mainContainer {
+    .logoContainer {
+      flex-direction: column;
+      align-items: center;
+
+      .logoLeft,
+      .logoRight {
+        margin: 0 0 20px 0;
+        display: none;
+      }
+    }
+
+    .loginContainer {
+      width: 90%;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .mainContainer {
+    .logoContainer {
+      .logoLeft,
+      .logoRight {
+        img {
+          height: 15vh;
+        }
+      }
+    }
+
+    .loginContainer {
+      form {
+        width: 100%;
+      }
+    }
+  }
+}

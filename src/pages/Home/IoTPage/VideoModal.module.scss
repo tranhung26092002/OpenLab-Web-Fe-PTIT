@@ -1,0 +1,36 @@
+.videoItem {
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  background-color: #dc3545;
+  border-radius: 5px;
+  color: white;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@media (max-width: 768px) {
+  .ant-modal {
+    width: 100% !important;
+    max-width: none;
+  }
+
+  .ant-modal-body {
+    height: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .videoItem {
+    padding: 8px 10px;
+  }
+}

@@ -1,0 +1,118 @@
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  .topRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    .logoLeft {
+      flex-grow: 1;
+      display: flex;
+      align-items: start;
+      img {
+        width: 220px;
+        height: auto;
+      }
+
+      .logoText {
+        margin-left: 10px;
+        font-size: x-large;
+        .textDanger {
+          color: red;
+        }
+      }
+    }
+
+    .logoRight {
+      margin-bottom: 80px;
+      .ant-dropdown-link {
+        display: flex;
+        align-items: center;
+        color: #000;
+        text-decoration: none;
+
+        &:hover {
+          color: red;
+        }
+      }
+    }
+  }
+
+  .navigation {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    a {
+      font-size: 1.2em;
+      color: #000;
+      text-decoration: none;
+      padding: 5px 10px;
+      margin: 0 10px;
+      position: relative;
+
+      &::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 3px;
+        background-color: red;
+        position: absolute;
+        bottom: -3px;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: width 0.3s ease-in-out;
+      }
+
+      &:hover::after {
+        width: 100%;
+        left: 0;
+        transform: translateX(0%);
+      }
+    }
+  }
+
+  .redLine {
+    height: 3.5px;
+    background-color: red;
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .headerContainer .topRow .logoLeft img {
+    width: 180px;
+  }
+
+  .headerContainer .navigation a {
+    font-size: 1em;
+    padding: 3px 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerContainer .topRow {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .headerContainer .topRow .logoLeft,
+  .headerContainer .topRow .logoRight {
+    margin-bottom: 10px;
+    justify-content: center;
+  }
+
+  .headerContainer .navigation {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .headerContainer .navigation a {
+    margin: 5px 0;
+  }
+}

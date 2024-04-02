@@ -1,0 +1,230 @@
+// Biến
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+
+// Mixins
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// Lớp
+.header {
+    background-color: $primary-color;
+    color: white;
+    padding: 10px;
+}
+
+.footer {
+    background-color: $secondary-color;
+    color: white;
+    padding: 10px;
+}
+
+h2 {
+    margin-bottom: 30px;
+}
+
+.Container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    display: flex;
+
+
+    .LeftContainer,
+    .RightContainer {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 30px;
+        margin-left: 20px;
+        margin-right: 20px;
+
+        h3 {
+            margin: 0;
+            /* Để loại bỏ khoảng trống mặc định */
+            text-align: center;
+            /* Để căn giữa theo chiều ngang */
+            margin-bottom: 20px;
+            margin-top: 30px
+        }
+
+        .SensorGrid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    }
+}
+
+.Block {
+    border: 2px solid #a39f9f;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    .Info {
+        margin-top: 10px;
+    }
+}
+
+.Block:hover {
+    transform: translateY(-4px);
+    /* Hiệu ứng nâng cao khi hover */
+}
+
+button {
+    background-color: #007bff;
+    /* Màu nền của nút */
+    color: #fff;
+    /* Màu chữ của nút */
+    border: none;
+    /* Loại bỏ viền */
+    padding: 8px 16px;
+    /* Kích thước nút */
+    border-radius: 4px;
+    /* Độ cong góc */
+    cursor: pointer;
+    /* Con trỏ khi di chuyển qua nút */
+    transition: background-color 0.3s ease;
+    /* Hiệu ứng transition */
+}
+
+button:hover {
+    background-color: #0056b3;
+    /* Màu nền của nút khi hover */
+}
+
+// KeyPad
+
+.KeyPadContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #ccc;
+    /* Tạo viền */
+    border-radius: 10px;
+    /* Bo tròn góc */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* Tạo đổ bóng */
+    padding: 20px;
+    /* Tạo khoảng cách giữa viền và nội dung bên trong */
+    width: 300px;
+    /* Định sẵn chiều rộng của khối */
+    margin: auto;
+    /* Căn giữa bàn phím */
+    margin-top: 10px;
+}
+
+.Screen {
+    margin-bottom: 10px;
+    width: calc(100% - 20px);
+    /* Màn hình chiếm toàn bộ chiều rộng, trừ đi phần padding của container */
+    padding: 10px;
+    /* Thêm padding cho màn hình */
+    text-align: right;
+    /* Hiển thị văn bản từ phải sang trái */
+    font-size: 18px;
+    /* Kích thước chữ cho màn hình */
+    border: 1px solid #ccc;
+    /* Viền cho màn hình */
+    border-radius: 5px;
+    /* Bo tròn góc cho màn hình */
+}
+
+.KeyPad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    /* Khoảng cách 10px giữa các ô */
+    justify-items: center;
+    width: 100%;
+    /* Bàn phím chiếm toàn bộ chiều rộng */
+}
+
+.KeyPad button {
+    padding: 20px;
+    /* Kích thước nút lớn hơn */
+    font-size: 18px;
+    /* Kích thước chữ */
+    border: none;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    /* Biểu tượng con trỏ khi di chuột qua nút */
+    color: black;
+    border: 1px solid #7a7a7a;
+    /* Viền cho màn hình */
+}
+
+.KeyPad button:hover {
+    background-color: #e0e0e0;
+}
+
+// ConnectionBlock
+
+.ConnectionBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #ccc;
+    /* Tạo viền */
+    border-radius: 10px;
+    /* Bo tròn góc */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* Tạo đổ bóng */
+    padding: 20px;
+    /* Tạo khoảng cách giữa viền và nội dung bên trong */
+    width: 300px;
+    /* Định sẵn chiều rộng của khối */
+    margin: auto;
+    /* Căn giữa bàn phím */
+    margin-top: 10px;
+}
+
+.InputContainer {
+    margin-bottom: 10px;
+}
+
+label {
+    margin-right: 10px;
+}
+
+.Input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.ConnectionButton {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    color: black;
+    background-color: #007bff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.ConnectionButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.ConnectionButton:hover {
+    background-color: #0056b3;
+}

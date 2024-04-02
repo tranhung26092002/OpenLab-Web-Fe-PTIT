@@ -1,0 +1,30 @@
+$breakpoint-xs: 576px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 992px;
+$breakpoint-lg: 1200px;
+$breakpoint-xl: 1400px;
+
+.container {
+  margin-top: 200px;
+
+  @media (max-width: $breakpoint-xl) {
+    margin-top: 180px;
+  }
+
+  @media (max-width: $breakpoint-lg) {
+    margin-top: 160px;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    margin-top: 140px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    margin-top: 120px;
+  }
+}
+
+.content {
+  @media (max-width: $breakpoint-sm) {
+  }
+}
