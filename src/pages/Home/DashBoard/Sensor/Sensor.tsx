@@ -6,6 +6,7 @@ import * as Icon from '@mui/icons-material';
 import 'firebase/database'; // Import module cho Firebase Database
 import app from '../../../../util/firebase';
 import { getDatabase, ref, onValue } from "firebase/database"
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 
 const Sensor = () => {
     let [temperatureLevels, setTemperatureLevels] = useState(Array(5).fill(null));
@@ -52,7 +53,7 @@ const Sensor = () => {
         };
     }, []);
 
-    const updateState = (snapshot: any, index: number , type: string) => {
+    const updateState = (snapshot: any, index: number, type: string) => {
         if (snapshot.exists()) {
             const sensorData = snapshot.val();
             switch (type) {
@@ -116,12 +117,64 @@ const Sensor = () => {
                         </div>
                     </div>
                     <div className={style.RightContainer}>
+                        <h3>Biểu đồ nhiệt độ</h3>
+                        <BarChart
+                            width={600}
+                            height={500}
+                            data={temperatureLevels.map((temperature, index) => ({
+                                time: index + 1,
+                                [`Sensor ${index + 1}`]: temperature
+                            }))}
+                            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="time" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            {temperatureLevels.map((_, index) => (
+                                <Bar
+                                    key={`sensor_${index}`}
+                                    dataKey={`Sensor ${index + 1}`}
+                                    fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+                                />
+                            ))}
+                        </BarChart>
+                    </div>
+                </div>
+                <div className={style.Container}>
+                    <div className={style.LeftContainer}>
                         <h3>Khối độ ẩm</h3>
                         <div className={style.SensorGrid}>
                             {humidityLevels.map((humidity, index) => (
                                 <SensorBlock key={`humidity_${index}`} title={`Độ ẩm ${index + 1}`} value={`${humidity} %`} icon={Icon.OpacityOutlined} />
                             ))}
                         </div>
+                    </div>
+                    <div className={style.RightContainer}>
+                        <h3>Biểu đồ độ ẩm</h3>
+                        <BarChart
+                            width={600}
+                            height={500}
+                            data={humidityLevels.map((humidity, index) => ({
+                                time: index + 1,
+                                [`Sensor ${index + 1}`]: humidity
+                            }))}
+                            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="time" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            {humidityLevels.map((_, index) => (
+                                <Bar
+                                    key={`sensor_${index}`}
+                                    dataKey={`Sensor ${index + 1}`}
+                                    fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+                                />
+                            ))}
+                        </BarChart>
                     </div>
                 </div>
                 <div className={style.Container}>
@@ -134,12 +187,64 @@ const Sensor = () => {
                         </div>
                     </div>
                     <div className={style.RightContainer}>
+                        <h3>Biểu đồ khí gas</h3>
+                        <BarChart
+                            width={600}
+                            height={500}
+                            data={gasLevels.map((gas, index) => ({
+                                time: index + 1,
+                                [`Sensor ${index + 1}`]: gas
+                            }))}
+                            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="time" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            {gasLevels.map((_, index) => (
+                                <Bar
+                                    key={`sensor_${index}`}
+                                    dataKey={`Sensor ${index + 1}`}
+                                    fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+                                />
+                            ))}
+                        </BarChart>
+                    </div>
+                </div>
+                <div className={style.Container}>
+                    <div className={style.LeftContainer}>
                         <h3>Khối ánh sáng</h3>
                         <div className={style.SensorGrid}>
                             {lightLevels.map((light, index) => (
                                 <SensorBlock key={`light_${index}`} title={`Ánh sáng ${index + 1}`} value={`${light} lux`} icon={Icon.LightModeOutlined} />
                             ))}
                         </div>
+                    </div>
+                    <div className={style.RightContainer}>
+                        <h3>Biểu đồ ánh sáng</h3>
+                        <BarChart
+                            width={600}
+                            height={500}
+                            data={lightLevels.map((light, index) => ({
+                                time: index + 1,
+                                [`Sensor ${index + 1}`]: light
+                            }))}
+                            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="time" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            {lightLevels.map((_, index) => (
+                                <Bar
+                                    key={`sensor_${index}`}
+                                    dataKey={`Sensor ${index + 1}`}
+                                    fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+                                />
+                            ))}
+                        </BarChart>
                     </div>
                 </div>
             </div>
