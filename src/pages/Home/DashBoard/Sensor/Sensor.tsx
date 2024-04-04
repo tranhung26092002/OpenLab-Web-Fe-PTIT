@@ -6,7 +6,7 @@ import * as Icon from '@mui/icons-material';
 import 'firebase/database'; // Import module cho Firebase Database
 import app from '../../../../util/firebase';
 import { getDatabase, ref, onValue } from "firebase/database"
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter, RadialBarChart, RadialBar } from 'recharts';
 
 const Sensor = () => {
     let [temperatureLevels, setTemperatureLevels] = useState(Array(5).fill(null));
@@ -129,8 +129,8 @@ const Sensor = () => {
                         >
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="time" />
-                            <YAxis />
-                            <Tooltip />
+                            <YAxis unit="°C" />
+                            <Tooltip formatter={(value) => `${value}°C`} />
                             <Legend />
                             {temperatureLevels.map((_, index) => (
                                 <Bar
@@ -164,8 +164,8 @@ const Sensor = () => {
                         >
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="time" />
-                            <YAxis />
-                            <Tooltip />
+                            <YAxis unit="°C" />
+                            <Tooltip formatter={(value) => `${value}°C`} />
                             <Legend />
                             {humidityLevels.map((_, index) => (
                                 <Bar
@@ -199,8 +199,8 @@ const Sensor = () => {
                         >
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="time" />
-                            <YAxis />
-                            <Tooltip />
+                            <YAxis unit="ppm" />
+                            <Tooltip formatter={(value) => `${value}ppm`} />
                             <Legend />
                             {gasLevels.map((_, index) => (
                                 <Bar
@@ -234,8 +234,8 @@ const Sensor = () => {
                         >
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="time" />
-                            <YAxis />
-                            <Tooltip />
+                            <YAxis unit="lux" />
+                            <Tooltip formatter={(value) => `${value}lux`} />
                             <Legend />
                             {lightLevels.map((_, index) => (
                                 <Bar

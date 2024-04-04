@@ -9,36 +9,52 @@ import 'firebase/database'; // Import module cho Firebase Database
 const DashBoard = () => {
     const navigate = useNavigate();
 
+    const [inputValue, setInputValue] = useState(''); // Khởi tạo state để lưu giá trị nhập từ input
+
+    const handleInputChange = (event: any) => {
+        setInputValue(event.target.value); // Cập nhật giá trị của input khi người dùng nhập
+    };
+
     const handleButtonClick = () => {
-        // Đường dẫn bạn muốn chuyển đến khi bấm vào nút button
-        const newPath = '/home/DashBoard/Sensor';
+        // Đường dẫn bạn muốn chuyển đến khi bấm vào nút button, kèm theo giá trị nhập từ trường input
+        const newPath = `/home/DashBoard/Sensor?value=${inputValue}`;
 
         // Chuyển hướng đến trang mới
         navigate(newPath);
     };
 
-    const SensorBlock: React.FC<{ title: string, icon: any }> = ({ title, icon }) => (
+    const SensorBlock: React.FC<{ title: string, icon: any, group: string }> = ({ title, icon, group }) => (
         <div className={style.Block}>
             {React.createElement(icon, { fontSize: 'large' })}
             <div className={style.Info}>
                 <h4>{title}</h4>
+                <div className={style.InputGroup}>
+                    <h5>{group}</h5>
+                    <input className={style.inputValue} type="number" value={inputValue} onChange={handleInputChange} />
+                </div>
                 <button onClick={handleButtonClick}>Hiển thị chi tiết</button>
             </div>
         </div>
     );
+
+
     const handleControllerButton = () => {
         // Đường dẫn bạn muốn chuyển đến khi bấm vào nút button
-        const newPath = '/home/DashBoard/Actuator';
+        const newPath = `/home/DashBoard/Actuator?value=${inputValue}`;
 
         // Chuyển hướng đến trang mới
         navigate(newPath);
     };
 
-    const ControllerBlock: React.FC<{ title: string, icon: any }> = ({ title, icon }) => (
+    const ControllerBlock: React.FC<{ title: string, icon: any, group: string }> = ({ title, icon, group }) => (
         <div className={style.Block}>
             {React.createElement(icon, { fontSize: 'large' })}
             <div className={style.Info}>
                 <h4>{title}</h4>
+                <div className={style.InputGroup}>
+                    <h5>{group}</h5>
+                    <input className={style.inputValue} type="number" value={inputValue} onChange={handleInputChange} />
+                </div>
                 <button onClick={handleControllerButton}>Hiển thị chi tiết</button>
             </div>
         </div>
@@ -87,13 +103,13 @@ const DashBoard = () => {
                     <div className={style.LeftContainer}>
                         <h3>Khối cảm biến</h3>
                         <div className={style.SensorGrid}>
-                            <SensorBlock title="Nhiệt độ" icon={Icon.ThermostatOutlined} />
+                            <SensorBlock title="Nhiệt độ" group="Nhóm (only number)" icon={Icon.ThermostatOutlined} />
                         </div>
                     </div>
                     <div className={style.MidContainer}>
                         <h3>Khối chấp hành</h3>
                         <div className={style.SensorGrid}>
-                            <ControllerBlock title="Còi" icon={Icon.NotificationsActiveOutlined} />
+                            <ControllerBlock title="Còi" group="Nhóm (only number)" icon={Icon.NotificationsActiveOutlined} />
                         </div>
                     </div>
                     <div className={style.RightContainer}>
