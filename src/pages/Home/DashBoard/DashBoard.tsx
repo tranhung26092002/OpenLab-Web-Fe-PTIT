@@ -16,6 +16,17 @@ const DashBoard = () => {
     };
 
     const handleButtonClick = () => {
+        if (!inputValue) {
+            // Nếu inputValue rỗng, hiển thị thông báo yêu cầu nhập số hoặc xử lý một cách phù hợp
+            alert('Vui lòng nhập số vào trước khi tiếp tục.');
+            return;
+        }
+    
+        // Kiểm tra xem inputValue có phải là số hay không
+        if (isNaN(parseFloat(inputValue))) {
+            alert('Vui lòng chỉ nhập số.');
+            return;
+        }
         // Đường dẫn bạn muốn chuyển đến khi bấm vào nút button, kèm theo giá trị nhập từ trường input
         const newPath = `/home/DashBoard/Sensor?value=${inputValue}`;
 
@@ -30,7 +41,7 @@ const DashBoard = () => {
                 <h4>{title}</h4>
                 <div className={style.InputGroup}>
                     <h5>{group}</h5>
-                    <input className={style.inputValue} type="number" value={inputValue} onChange={handleInputChange} />
+                    <input className={style.inputValue} type="text" value={inputValue} onChange={handleInputChange} />
                 </div>
                 <button onClick={handleButtonClick}>Hiển thị chi tiết</button>
             </div>
@@ -39,6 +50,18 @@ const DashBoard = () => {
 
 
     const handleControllerButton = () => {
+        if (!inputValue) {
+            // Nếu inputValue rỗng, hiển thị thông báo yêu cầu nhập số hoặc xử lý một cách phù hợp
+            alert('Vui lòng nhập số vào trước khi tiếp tục.');
+            return;
+        }
+    
+        // Kiểm tra xem inputValue có phải là số hay không
+        if (isNaN(parseFloat(inputValue))) {
+            alert('Vui lòng chỉ nhập số.');
+            return;
+        }
+        
         // Đường dẫn bạn muốn chuyển đến khi bấm vào nút button
         const newPath = `/home/DashBoard/Actuator?value=${inputValue}`;
 
@@ -53,7 +76,7 @@ const DashBoard = () => {
                 <h4>{title}</h4>
                 <div className={style.InputGroup}>
                     <h5>{group}</h5>
-                    <input className={style.inputValue} type="number" value={inputValue} onChange={handleInputChange} />
+                    <input className={style.inputValue} type="text" value={inputValue} onChange={handleInputChange} />
                 </div>
                 <button onClick={handleControllerButton}>Hiển thị chi tiết</button>
             </div>
@@ -103,13 +126,13 @@ const DashBoard = () => {
                     <div className={style.LeftContainer}>
                         <h3>Khối cảm biến</h3>
                         <div className={style.SensorGrid}>
-                            <SensorBlock title="Nhiệt độ" group="Nhóm (only number)" icon={Icon.ThermostatOutlined} />
+                            <SensorBlock title="Nhiệt độ" group="Nhập nhóm" icon={Icon.ThermostatOutlined} />
                         </div>
                     </div>
                     <div className={style.MidContainer}>
                         <h3>Khối chấp hành</h3>
                         <div className={style.SensorGrid}>
-                            <ControllerBlock title="Còi" group="Nhóm (only number)" icon={Icon.NotificationsActiveOutlined} />
+                            <ControllerBlock title="Còi" group="Nhập nhóm" icon={Icon.NotificationsActiveOutlined} />
                         </div>
                     </div>
                     <div className={style.RightContainer}>

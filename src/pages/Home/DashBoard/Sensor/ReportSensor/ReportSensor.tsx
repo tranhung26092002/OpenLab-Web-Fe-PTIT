@@ -1,18 +1,17 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import Header from '../../../../components/Header/Header';
-import Footer from '../../../../components/Footer/Footer';
-import style from './Sensor.module.scss'; 
+import Header from '../../../../../components/Header/Header';
+import Footer from '../../../../../components/Footer/Footer';
+import style from '../Sensor.module.scss';
 import * as Icon from '@mui/icons-material';
-import 'firebase/database'; 
-import app from '../../../../util/firebase';
+import 'firebase/database';
+import app from '../../../../../util/firebase';
 import { getDatabase, ref, onValue } from "firebase/database"
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label, ReferenceLine } from 'recharts';
 import dayjs from 'dayjs';
 import { Form, Input, Button, Table, Col, DatePicker, Row, Select } from 'antd';
-import { useDispatch } from 'react-redux';
 
-const Sensor = () => {
+const Report = () => {
     const location = useLocation();
     const [valueUrl, setValue] = useState('');
 
@@ -98,7 +97,7 @@ const Sensor = () => {
         </div>
     );
 
-    const SensorBlock: React.FC<{ title: string,topic: string, value: any, icon: any }> = ({ title, topic, value, icon }) => (
+    const SensorBlock: React.FC<{ title: string, topic: string, value: any, icon: any }> = ({ title, topic, value, icon }) => (
         <div className={style.Block}>
             {React.createElement(icon, { fontSize: 'large' })}
             <div className={style.Info}>
@@ -108,7 +107,6 @@ const Sensor = () => {
             </div>
         </div>
     );
-    
     const navigate = useNavigate();
 
     const handleSubmit = () => {
@@ -130,24 +128,6 @@ const Sensor = () => {
             <div>
                 <h2>DashBoard</h2>
                 <div className={style.Container}>
-                    <div className={style.MainContainer}>
-                        <h3>Nhóm số {valueUrl}</h3>
-                        <div className={style.SensorGrid}>
-                            <SensorBlock title={`Nhiệt độ`} topic= {`Sensor/temperature/${valueUrl}`} value={`${temperatureLevel} °C`} icon={Icon.ThermostatOutlined} />
-                            <SensorBlock title={`Độ ẩm`} topic= {`Sensor/humidity/${valueUrl}`} value={`${humidityLevel} %`} icon={Icon.OpacityOutlined} />
-                            <SensorBlock title={`Khí gas`} topic= {`Sensor/gas/${valueUrl}`} value={`${gasLevel} ppm`} icon={Icon.AirOutlined} />
-                            <SensorBlock title={`Ánh sáng`} topic= {`Sensor/light/${valueUrl}`} value={`${lightLevel} lux`} icon={Icon.LightModeOutlined} />
-                        </div>
-                    </div>
-                    <div className={style.ChartContainer}>
-                        <h3>Biểu đồ</h3>
-                        <div className={style.ChartGrid}>
-                            <ChartBlock title={`Nhiệt độ`} dataKey="temperature" data={temperatureLevel} color="#82ca9d" />
-                            <ChartBlock title={`Độ ẩm`} dataKey="humidity" data={humidityLevel} color="#8884d8" />
-                            <ChartBlock title={`Khí gas`} dataKey="gas" data={gasLevel} color="#ffc658" />
-                            <ChartBlock title={`Ánh sáng`} dataKey="light" data={lightLevel} color="#ff7300" />
-                        </div>
-                    </div>
                     <div className={style.ReportContainer}>
                         <Form layout="vertical">
                             <Row gutter={[16, 16]}>
@@ -205,8 +185,23 @@ const Sensor = () => {
                             </Row>
 
                         </Form>
-                        <div className={style.SubmitContainer}>
-                            <button onClick={handleSubmit}>Submit</button>
+                    </div>
+                    <div className={style.MainContainer}>
+                        <h3>Nhóm số {valueUrl}</h3>
+                        <div className={style.SensorGrid}>
+                            <SensorBlock title={`Nhiệt độ`} topic={`Sensor/temperature/${valueUrl}`} value={`${temperatureLevel} °C`} icon={Icon.ThermostatOutlined} />
+                            <SensorBlock title={`Độ ẩm`} topic={`Sensor/humidity/${valueUrl}`} value={`${humidityLevel} %`} icon={Icon.OpacityOutlined} />
+                            <SensorBlock title={`Khí gas`} topic={`Sensor/gas/${valueUrl}`} value={`${gasLevel} ppm`} icon={Icon.AirOutlined} />
+                            <SensorBlock title={`Ánh sáng`} topic={`Sensor/light/${valueUrl}`} value={`${lightLevel} lux`} icon={Icon.LightModeOutlined} />
+                        </div>
+                    </div>
+                    <div className={style.ChartContainer}>
+                        <h3>Biểu đồ</h3>
+                        <div className={style.ChartGrid}>
+                            <ChartBlock title={`Nhiệt độ`} dataKey="temperature" data={temperatureLevel} color="#82ca9d" />
+                            <ChartBlock title={`Độ ẩm`} dataKey="humidity" data={humidityLevel} color="#8884d8" />
+                            <ChartBlock title={`Khí gas`} dataKey="gas" data={gasLevel} color="#ffc658" />
+                            <ChartBlock title={`Ánh sáng`} dataKey="light" data={lightLevel} color="#ff7300" />
                         </div>
                     </div>
                 </div>
@@ -216,4 +211,4 @@ const Sensor = () => {
     )
 }
 
-export default Sensor;
+export default Report;

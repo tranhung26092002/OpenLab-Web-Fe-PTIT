@@ -18,6 +18,8 @@ import AdminPage from './pages/AdminPage/AdminPage';
 import DashBoard from './pages/Home/DashBoard/DashBoard';
 
 import Sensor from './pages/Home/DashBoard/Sensor/Sensor';
+import ReportSensor from './pages/Home/DashBoard/Sensor/ReportSensor/ReportSensor';
+
 import Actuator from './pages/Home/DashBoard/Actuator/Actuator';
 
 import NodeBlock from './pages/Home/IoTPage/NodeBlock/NodeBlock';
@@ -46,6 +48,8 @@ root.render(
         <Route path="/home/DashBoard" element={<AuthGuard><DashBoard /></AuthGuard>}></Route>
 
         <Route path="/home/DashBoard/Sensor" element={<AuthGuard><Sensor /></AuthGuard>}></Route>
+        <Route path="/home/DashBoard/Sensor/Report" element={<AuthGuard><ReportSensor /></AuthGuard>}></Route>
+
         <Route path="/home/DashBoard/Actuator" element={<AuthGuard><Actuator /></AuthGuard>}></Route>
 
         <Route path="/home/IoTNode" element={<AuthGuard><NodeBlock /></AuthGuard>}></Route>
