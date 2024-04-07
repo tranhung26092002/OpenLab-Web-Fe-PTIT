@@ -1,16 +1,18 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Header from '../../../../components/Header/Header';
 import Footer from '../../../../components/Footer/Footer';
-import style from './Sensor.module.scss'; 
+import style from './Sensor.module.scss';
 import * as Icon from '@mui/icons-material';
-import 'firebase/database'; 
+import 'firebase/database';
 import app from '../../../../util/firebase';
 import { getDatabase, ref, onValue } from "firebase/database"
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label, ReferenceLine } from 'recharts';
 import dayjs from 'dayjs';
-import { Form, Input, Button, Table, Col, DatePicker, Row, Select } from 'antd';
+import { Form, Input, Button, Col, DatePicker, Row, notification } from 'antd';
+import { submitSensorData } from '../../../../redux/SensorReducer/SensorReducer';
 import { useDispatch } from 'react-redux';
+import { DispatchType } from '../../../../redux/configStore';
 
 const Sensor = () => {
     const location = useLocation();
@@ -98,7 +100,7 @@ const Sensor = () => {
         </div>
     );
 
-    const SensorBlock: React.FC<{ title: string,topic: string, value: any, icon: any }> = ({ title, topic, value, icon }) => (
+    const SensorBlock: React.FC<{ title: string, topic: string, value: any, icon: any }> = ({ title, topic, value, icon }) => (
         <div className={style.Block}>
             {React.createElement(icon, { fontSize: 'large' })}
             <div className={style.Info}>
@@ -108,14 +110,66 @@ const Sensor = () => {
             </div>
         </div>
     );
-    
+
+    const dispatch = useDispatch<DispatchType>();
     const navigate = useNavigate();
+    const [form] = Form.useForm(); // Use the useForm hook to get the form instance
 
     const handleSubmit = () => {
-        const newPath = `/home/DashBoard/Sensor/Report`;
+        // Kiểm tra và xử lý trường hợp giá trị null
+        if (temperatureLevel === null || humidityLevel === null || gasLevel === null || lightLevel === null) {
+            // Hiển thị thông báo cho người dùng
+            notification.error({
+                message: 'Error',
+                description: 'Some sensor data is missing or invalid'
+            });
+            return; // Dừng xử lý nếu có giá trị null
+        }
 
-        // Chuyển hướng đến trang mới
-        navigate(newPath);
+        // Lấy dữ liệu từ form
+        const formData = form.getFieldsValue();
+        const { title, group, nameClass, date, instructor, practiceSession } = formData;
+        const formattedDate = formData.date ? dayjs(formData.date).format('YYYY-MM-DD') : ''; // Định dạng lại ngày tháng
+
+        const students = [];
+        for (let i = 0; i < rowCount; i++) {
+            const studentName = formData[`studentName${i}`];
+            const studentId = formData[`studentId${i}`];
+            if (studentName && studentId) { // Chỉ lấy thông tin nếu cả họ và tên sinh viên và mã sinh viên không rỗng
+                students.push({ name: studentName, id: studentId });
+            }
+        }
+
+        // Tiếp tục xử lý khi không có giá trị null
+        const sensorData = {
+            temperature: temperatureLevel,
+            humidity: humidityLevel,
+            gas: gasLevel,
+            light: lightLevel,
+            title: title,
+            group: group,
+            nameClass: nameClass,
+            date: formattedDate,
+            instructor: instructor,
+            practiceSession: practiceSession,
+            students: students // Thêm thông tin về sinh viên vào đối tượng sensorData
+        };
+
+        dispatch(submitSensorData(sensorData))
+            .then(() => {
+                notification.success({
+                    message: 'Success',
+                    description: 'Created Successfully'
+                });
+                const newPath = `/home/DashBoard/Sensor/Report`;
+                // Chuyển hướng đến trang mới
+                navigate(newPath);
+            }).catch(() => {
+                notification.error({
+                    message: 'Error',
+                    description: 'Failed to update sensor data'
+                });
+            });
     };
 
     const [rowCount, setRowCount] = useState(1);
@@ -133,10 +187,10 @@ const Sensor = () => {
                     <div className={style.MainContainer}>
                         <h3>Nhóm số {valueUrl}</h3>
                         <div className={style.SensorGrid}>
-                            <SensorBlock title={`Nhiệt độ`} topic= {`Sensor/temperature/${valueUrl}`} value={`${temperatureLevel} °C`} icon={Icon.ThermostatOutlined} />
-                            <SensorBlock title={`Độ ẩm`} topic= {`Sensor/humidity/${valueUrl}`} value={`${humidityLevel} %`} icon={Icon.OpacityOutlined} />
-                            <SensorBlock title={`Khí gas`} topic= {`Sensor/gas/${valueUrl}`} value={`${gasLevel} ppm`} icon={Icon.AirOutlined} />
-                            <SensorBlock title={`Ánh sáng`} topic= {`Sensor/light/${valueUrl}`} value={`${lightLevel} lux`} icon={Icon.LightModeOutlined} />
+                            <SensorBlock title={`Nhiệt độ`} topic={`Sensor/temperature/${valueUrl}`} value={`${temperatureLevel} °C`} icon={Icon.ThermostatOutlined} />
+                            <SensorBlock title={`Độ ẩm`} topic={`Sensor/humidity/${valueUrl}`} value={`${humidityLevel} %`} icon={Icon.OpacityOutlined} />
+                            <SensorBlock title={`Khí gas`} topic={`Sensor/gas/${valueUrl}`} value={`${gasLevel} ppm`} icon={Icon.AirOutlined} />
+                            <SensorBlock title={`Ánh sáng`} topic={`Sensor/light/${valueUrl}`} value={`${lightLevel} lux`} icon={Icon.LightModeOutlined} />
                         </div>
                     </div>
                     <div className={style.ChartContainer}>
@@ -149,7 +203,7 @@ const Sensor = () => {
                         </div>
                     </div>
                     <div className={style.ReportContainer}>
-                        <Form layout="vertical">
+                        <Form layout="vertical" form={form}>
                             <Row gutter={[16, 16]}>
                                 <Col span={24}>
                                     <Form.Item name="title" label="Tên bài">
@@ -183,7 +237,7 @@ const Sensor = () => {
                                     </Form.Item>
                                 </Col>
                                 <Col span={8}>
-                                    <Form.Item name="class" label="Lớp">
+                                    <Form.Item name="nameClass" label="Lớp">
                                         <Input placeholder="Nhập lớp" />
                                     </Form.Item>
                                 </Col>

@@ -3,6 +3,7 @@ import UserReducer from "./UserReducer/UserReducer";
 import BaiIoTReducer from "./BaiIoT/BaiIoTReducer";
 import CommentBaiKhoiNguon from "./CommentBaiIoT/CommentBaiKhoiNguon";
 import SensorBlockReducer from "./NodeBlockReducer/NodeBlockReducer";
+import sensorReport from "./SensorReducer/SensorReducer";
 import ControllerBlockReducer from "./GatewayBlockReducer/GatewayBlockReducer";
 import PeripheralBlockReducer from "./CloudBlockReducer/CloudBlockReducer";
 import CommentBaiKhoiCamBien from "./CommentBaiIoT/CommentBaiKhoiCamBien";
@@ -23,6 +24,7 @@ export const store = configureStore({
 
         BaiIoTReducer,
         SensorBlockReducer,
+        sensorReport,
         ControllerBlockReducer,
         PeripheralBlockReducer,
 

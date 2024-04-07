@@ -79,6 +79,7 @@ const Header: React.FC = () => {
                     <NavLink to="/home/IoTGateway" className={styles.link}>LỚP MẠNG</NavLink><br />
                     <NavLink to="/home/IoTCloud" className={styles.link}>LỚP ỨNG DỤNG</NavLink><br />
                     <NavLink to="/home/DashBoard" className={styles.link}>DASHBOARD</NavLink><br />
+                    <NavLink to="/home/DashBoard/Sensor/Report" className={styles.link}>REPORT</NavLink><br />
                 </div>
                 <div className={styles.redLine}>
 
