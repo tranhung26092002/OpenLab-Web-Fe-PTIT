@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { history, http } from "../../util/config";
 
 export interface SensorReport {
+    reportId: number;
     temperature: number;
     humidity: number;
     gas: number;
@@ -12,7 +13,7 @@ export interface SensorReport {
     date: string;
     instructor: string;
     practiceSession: string;
-    students: { name: string; id: string }[]
+    students: { id: number; name: string; studentId: string }[]
 }
 
 

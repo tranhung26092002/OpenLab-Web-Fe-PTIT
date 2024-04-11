@@ -128,7 +128,7 @@ const Sensor = () => {
 
         // Lấy dữ liệu từ form
         const formData = form.getFieldsValue();
-        const { title, group, nameClass, date, instructor, practiceSession } = formData;
+        const { title, group, nameClass, instructor, practiceSession } = formData;
         const formattedDate = formData.date ? dayjs(formData.date).format('YYYY-MM-DD') : ''; // Định dạng lại ngày tháng
 
         const students = [];

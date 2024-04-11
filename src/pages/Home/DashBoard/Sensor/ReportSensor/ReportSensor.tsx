@@ -53,7 +53,7 @@ const Report = () => {
             <div>
                 <h2>Báo cáo thực hành</h2>
                 <div className={style.Container}>
-                    {reports.slice().reverse().map((report, index) => (
+                    {reports.map((report, index) => (
                         <div className={style.ReportContainer} key={index}>
                             <div className={style.MainContainer}>
                                 <h3>Nhóm số {report.groupName}</h3>
