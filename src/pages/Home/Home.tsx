@@ -18,7 +18,6 @@ export const Home = (props: Props) => {
                         <NavLink to="/home/IoTGateway" className={styles.link}>LỚP MẠNG : BUỔI IV, BUỔI V.</NavLink><br />
                         <NavLink to="/home/IoTCloud" className={styles.link}>LỚP ỨNG DỤNG : BUỔI VI, BUỔI VII.</NavLink><br />
                         <NavLink to="/home/DashBoard" className={styles.link}>DASHBOARD</NavLink><br />
-                        <NavLink to="/home/DashBoard/Sensor/Report" className={styles.link}>REPORT</NavLink><br />
                     </div>
                     <div className={styles.contentImage}>
                         <img src={require('../../assets/img/Screenshot from 2023-10-03 18-47-11.png')} alt="" />
