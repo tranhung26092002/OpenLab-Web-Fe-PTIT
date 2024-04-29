@@ -8,11 +8,6 @@ import app from '../../../../util/firebase';
 import { getDatabase, ref, onValue } from "firebase/database"
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Label, ReferenceLine } from 'recharts';
-import dayjs from 'dayjs';
-import { Form, Input, Button, Col, DatePicker, Row, notification } from 'antd';
-import { submitSensorData } from '../../../../redux/SensorReducer/SensorReducer';
-import { useDispatch } from 'react-redux';
-import { DispatchType } from '../../../../redux/configStore';
 
 const Sensor = () => {
     const location = useLocation();
@@ -111,73 +106,6 @@ const Sensor = () => {
         </div>
     );
 
-    const dispatch = useDispatch<DispatchType>();
-    const navigate = useNavigate();
-    const [form] = Form.useForm(); // Use the useForm hook to get the form instance
-
-    const handleSubmit = () => {
-        // Kiểm tra và xử lý trường hợp giá trị null
-        if (temperatureLevel === null || humidityLevel === null || gasLevel === null || lightLevel === null) {
-            // Hiển thị thông báo cho người dùng
-            notification.error({
-                message: 'Error',
-                description: 'Some sensor data is missing or invalid'
-            });
-            return; // Dừng xử lý nếu có giá trị null
-        }
-
-        // Lấy dữ liệu từ form
-        const formData = form.getFieldsValue();
-        const { title, group, nameClass, instructor, practiceSession } = formData;
-        const formattedDate = formData.date ? dayjs(formData.date).format('YYYY-MM-DD') : ''; // Định dạng lại ngày tháng
-
-        const students = [];
-        for (let i = 0; i < rowCount; i++) {
-            const studentName = formData[`studentName${i}`];
-            const studentId = formData[`studentId${i}`];
-            if (studentName && studentId) { // Chỉ lấy thông tin nếu cả họ và tên sinh viên và mã sinh viên không rỗng
-                students.push({ name: studentName, id: studentId });
-            }
-        }
-
-        // Tiếp tục xử lý khi không có giá trị null
-        const sensorData = {
-            temperature: temperatureLevel,
-            humidity: humidityLevel,
-            gas: gasLevel,
-            light: lightLevel,
-            title: title,
-            group: group,
-            nameClass: nameClass,
-            date: formattedDate,
-            instructor: instructor,
-            practiceSession: practiceSession,
-            students: students // Thêm thông tin về sinh viên vào đối tượng sensorData
-        };
-
-        dispatch(submitSensorData(sensorData))
-            .then(() => {
-                notification.success({
-                    message: 'Success',
-                    description: 'Created Successfully'
-                });
-                const newPath = `/home/DashBoard/Sensor/Report`;
-                // Chuyển hướng đến trang mới
-                navigate(newPath);
-            }).catch(() => {
-                notification.error({
-                    message: 'Error',
-                    description: 'Failed to update sensor data'
-                });
-            });
-    };
-
-    const [rowCount, setRowCount] = useState(1);
-
-    const addRow = () => {
-        setRowCount(rowCount + 1);
-    };
-
     return (
         <Fragment>
             <Header />
@@ -203,65 +131,7 @@ const Sensor = () => {
                         </div>
                     </div>
                     <div className={style.ReportContainer}>
-                        <Form layout="vertical" form={form}>
-                            <Row gutter={[16, 16]}>
-                                <Col span={24}>
-                                    <Form.Item name="title" label="Tên bài">
-                                        <Input placeholder="Nhập tên bài" />
-                                    </Form.Item>
-                                </Col>
-                                <Row gutter={[16, 16]}>
-                                    {[...Array(rowCount)].map((_, index) => (
-                                        <Fragment key={index}>
-                                            <Col span={12}>
-                                                <Form.Item name={`studentName${index}`} label="Họ và tên sinh viên">
-                                                    <Input placeholder="Nhập họ và tên sinh viên" />
-                                                </Form.Item>
-                                            </Col>
-                                            <Col span={12}>
-                                                <Form.Item name={`studentId${index}`} label="Mã sinh viên">
-                                                    <Input placeholder="Nhập mã sinh viên" />
-                                                </Form.Item>
-                                            </Col>
-                                        </Fragment>
-                                    ))}
-                                    <Col span={12}>
-                                        <Button type="dashed" onClick={addRow} block>
-                                            Thêm sinh viên
-                                        </Button>
-                                    </Col>
-                                </Row>
-                                <Col span={8}>
-                                    <Form.Item name="group" label="Nhóm">
-                                        <Input placeholder="Nhập nhóm" />
-                                    </Form.Item>
-                                </Col>
-                                <Col span={8}>
-                                    <Form.Item name="nameClass" label="Lớp">
-                                        <Input placeholder="Nhập lớp" />
-                                    </Form.Item>
-                                </Col>
-                                <Col span={8}>
-                                    <Form.Item name="date" label="Ngày thực hành">
-                                        <DatePicker format="DD/MM/YYYY" defaultValue={dayjs()} />
-                                    </Form.Item>
-                                </Col>
-                                <Col span={12}>
-                                    <Form.Item name="instructor" label="Giảng viên hướng dẫn">
-                                        <Input placeholder="Nhập tên giảng viên hướng dẫn" />
-                                    </Form.Item>
-                                </Col>
-                                <Col span={12}>
-                                    <Form.Item name="practiceSession" label="Ca thực tập">
-                                        <Input placeholder="Nhập ca thực tập" />
-                                    </Form.Item>
-                                </Col>
-                            </Row>
 
-                        </Form>
-                        <div className={style.SubmitContainer}>
-                            <button onClick={handleSubmit}>Submit</button>
-                        </div>
                     </div>
                 </div>
             </div>

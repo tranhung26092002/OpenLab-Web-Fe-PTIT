@@ -19,8 +19,9 @@ import DashBoard from './pages/Home/DashBoard/DashBoard';
 
 import BrokerMQTT from './pages/Home/BrokerMQTT/BrokerMQTT';
 
+import Report from './pages/Home/Report/Report';
+
 import Sensor from './pages/Home/DashBoard/Sensor/Sensor';
-import ReportSensor from './pages/Home/DashBoard/Sensor/ReportSensor/ReportSensor';
 
 import Actuator from './pages/Home/DashBoard/Actuator/Actuator';
 
@@ -51,8 +52,9 @@ root.render(
 
         <Route path="/home/BrokerMQTT" element={<AuthGuard><BrokerMQTT /></AuthGuard>}></Route>
 
+        <Route path="/home/Report" element={<AuthGuard><Report /></AuthGuard>}></Route>
+
         <Route path="/home/DashBoard/Sensor" element={<AuthGuard><Sensor /></AuthGuard>}></Route>
-        <Route path="/home/DashBoard/Sensor/Report" element={<AuthGuard><ReportSensor /></AuthGuard>}></Route>
 
         <Route path="/home/DashBoard/Actuator" element={<AuthGuard><Actuator /></AuthGuard>}></Route>
 

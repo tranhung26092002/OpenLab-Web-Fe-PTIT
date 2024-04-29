@@ -57,7 +57,7 @@ const Header: React.FC = () => {
                         <div className="lang" style={{ textAlign: 'center', padding: '5px 12px 0 0' }}>
                             <a className='mr-2 mb-4' href="https://portal.ptit.edu.vn">
                                 <img src="https://portal.ptit.edu.vn/wp-content/uploads/2016/04/quoc-ky-viet-nam.jpg" title="Tiếng Việt" style={{ textAlign: 'right' }} alt="" />
-                            </a>;
+                            </a>
                             <a href="https://portal.ptit.edu.vn/eng/">
                                 <img src="https://portal.ptit.edu.vn/wp-content/uploads/2016/04/quoc-ky-anh.jpg" title="Tiếng Anh" style={{ textAlign: 'right' }} alt=""/>
                             </a>
@@ -80,7 +80,7 @@ const Header: React.FC = () => {
                     <NavLink to="/home/IoTCloud" className={styles.link}>LỚP ỨNG DỤNG</NavLink><br />
                     <NavLink to="/home/DashBoard" className={styles.link}>DASHBOARD</NavLink><br />
                     <NavLink to="/home/BrokerMQTT" className={styles.link}>BrokerMQTT</NavLink><br />
-                    <NavLink to="/home/DashBoard/Sensor/Report" className={styles.link}>REPORT</NavLink><br />
+                    <NavLink to="/home/Report" className={styles.link}>REPORT</NavLink><br />
                 </div>
                 <div className={styles.redLine}>
 
