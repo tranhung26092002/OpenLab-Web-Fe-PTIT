@@ -6,8 +6,8 @@ import { Client, Message } from 'paho-mqtt';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import * as Icon from '@mui/icons-material';
 import dayjs from 'dayjs';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Form, Input, Button, Col, DatePicker, Row, notification, Select, Descriptions, List, InputNumber,Tag } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { Form, Input, Button, Col, DatePicker, Row, notification, Select, List, Tag } from 'antd';
 import { submitData } from '../../../redux/ReportReducer/ReportReducer';
 import { useDispatch } from 'react-redux';
 import { DispatchType } from '../../../redux/configStore';
@@ -268,11 +268,11 @@ const MqttClient = () => {
 
     const exercises = [
         { name: 'Buổi 1', content: 'THỰC HÀNH LẬP TRÌNH CƠ BẢN CHO VI ĐIỀU KHIỂN (STM32/ARDUINO)', evaluation: 'Đạt' },
-        { name: 'Buổi 2', content: 'THỰC HÀNH GIAO TIẾP CẢM BIẾN-VI ĐIỀU KHIỂN-RELAY-BÓNG ĐÈN-MOTOR', evaluation: 'Không đạt' },
+        { name: 'Buổi 2', content: 'THỰC HÀNH GIAO TIẾP CẢM BIẾN-VI ĐIỀU KHIỂN-RELAY-BÓNG ĐÈN-MOTOR', evaluation: 'Đạt' },
         { name: 'Buổi 3', content: 'THỰC HÀNH GIAO THỨC TRUYỀN NHẬN DỮ LIỆU SPI/I2C/UART', evaluation: 'Đạt' },
-        { name: 'Buổi 4', content: 'THỰC HÀNH  MẠNG ZIGBEE', evaluation: 'Không đạt' },
+        { name: 'Buổi 4', content: 'THỰC HÀNH  MẠNG ZIGBEE', evaluation: 'Đạt' },
         { name: 'Buổi 5', content: 'THỰC HÀNH MẠNG LORA', evaluation: 'Đạt' },
-        { name: 'Buổi 6', content: 'THỰC HÀNH CLOUD', evaluation: 'Không đạt' },
+        { name: 'Buổi 6', content: 'THỰC HÀNH CLOUD', evaluation: 'Đạt' },
         { name: 'Buổi 7', content: 'THỰC HÀNH ĐIỀU KHIỂN QUA SMART PHONE', evaluation: 'Đạt' },
     ];
 
@@ -413,7 +413,7 @@ const MqttClient = () => {
                             </Row>
                             <Row gutter={[16, 16]}>
                                 <Col span={16}>
-                                    <Form.Item name="title" label="Chọn đề tài cho bài thu hoặch cuối khóa">
+                                    <Form.Item name="title" label="Chọn đề tài cho bài thu hoạch cuối khóa">
                                         <Select placeholder="Chọn đề tài">
                                             <Option value="Đề tài 1: Hệ thống chiếu sáng thông minh">Đề tài 1: Hệ thống chiếu sáng thông minh</Option>
                                             <Option value="Đề tài 2: Hệ thống cảnh báo khí Gas thông minh">Đề tài 2: Hệ thống cảnh báo khí Gas thông minh</Option>

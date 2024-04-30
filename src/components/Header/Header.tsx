@@ -11,7 +11,6 @@ import { logout } from '../../redux/UserReducer/UserReducer';
 const Header: React.FC = () => {
     const role = useSelector((state: RootState) => state.UserReducer.role);
     const email = useSelector((state: RootState) => state.UserReducer.email);
-    console.log("role", role);
     const dispatch: DispatchType = useDispatch();
 
     const handlAdminClick = () => {

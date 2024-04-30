@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { history, http } from "../../util/config";
+import { message } from 'antd';
 
 export interface Report {
     reportId: number;
@@ -10,6 +11,7 @@ export interface Report {
     instructor: string;
     practiceSession: string;
     student: { id: number; name: string; studentId: string }
+    grade: number;
 }
 
 
@@ -31,7 +33,7 @@ export const submitData = createAsyncThunk(
         student: { name: string; id: string }
     }, thunkAPI) => {
         try {
-            const response = await http.post(`/api/IoT/report/create`, data);   
+            const response = await http.post(`/api/IoT/report/create`, data);
             return response.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data.message || 'Something went wrong!');
@@ -44,10 +46,33 @@ export const getAllReports = createAsyncThunk(
     async () => {
         try {
             const response = await http.get(`/api/IoT/report/all`);
-            console.log(response.data);
             return response.data;
         } catch (error: any) {
             return (error.response.data.message || 'Something went wrong!');
+        }
+    }
+);
+
+export const updateGrade = createAsyncThunk(
+    'sensor/updateGrade',
+    async (data: { reportId: number; grade: number }, thunkAPI) => {
+        try {
+            const response = await http.put(`/api/IoT/report/updateGrade/${data.reportId}?newGrade=${data.grade}`);
+            return response.data;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.response.data.message || 'Something went wrong!');
+        }
+    }
+);
+
+export const deleteReport = createAsyncThunk(
+    'sensor/deleteReport',
+    async (reportId: number, thunkAPI) => {
+        try {
+            const response = await http.delete(`/api/IoT/report/deleteReport/${reportId}`);
+            return response.data;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.response.data.message || 'Something went wrong!');
         }
     }
 );
@@ -77,10 +102,34 @@ const sensorReport = createSlice({
             state.status = 'succeeded';
             state.items = action.payload; // Cập nhật mảng reports với dữ liệu từ máy chủ
         })
+
         builder.addCase(getAllReports.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message || 'Unknown error';
         });
+
+        builder.addCase(updateGrade.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            const updatedReport = action.payload; // Đảm bảo action.payload chứa báo cáo đã được cập nhật từ máy chủ
+            state.items = state.items.map(report => {
+                if (report.reportId === updatedReport.reportId) {
+                    return updatedReport;
+                } else {
+                    return report;
+                }
+            });
+            message.success('Cập nhật điểm thành công!');
+            window.location.reload();
+        });
+        
+        builder.addCase(deleteReport.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            const deletedReportId = action.payload; // Đảm bảo action.payload chứa reportId của báo cáo đã bị xóa
+            state.items = state.items.filter(report => report.reportId !== deletedReportId);
+            message.success('Xóa báo cáo thành công!');
+            window.location.reload();
+        });
+        
     }
 })
 
