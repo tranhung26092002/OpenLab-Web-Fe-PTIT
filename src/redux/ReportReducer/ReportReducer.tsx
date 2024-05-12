@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { history, http } from "../../util/config";
-import { message } from 'antd';
 
 export interface Report {
     reportId: number;
@@ -118,16 +117,12 @@ const sensorReport = createSlice({
                     return report;
                 }
             });
-            message.success('Cập nhật điểm thành công!');
-            window.location.reload();
         });
         
         builder.addCase(deleteReport.fulfilled, (state, action) => {
             state.status = 'succeeded';
             const deletedReportId = action.payload; // Đảm bảo action.payload chứa reportId của báo cáo đã bị xóa
             state.items = state.items.filter(report => report.reportId !== deletedReportId);
-            message.success('Xóa báo cáo thành công!');
-            window.location.reload();
         });
         
     }

@@ -22,10 +22,26 @@
     background-color: #f0f0f0;
 }
 
+.Pagination {
+    text-align: center; /* Căn giữa các nút */
+}
 
-.ReportContainer,
-.StudentInfoContainer {
+.Pagination button {
+    margin: 0 5px; /* Khoảng cách giữa các nút */
+    padding: 5px 10px; /* Kích thước nút */
+    border: 1px solid #ccc; /* Đường viền nút */
+    background-color: #007bff;
+    cursor: pointer;
+}
 
+.Pagination button:hover {
+    background-color: #0056b3;
+}
+
+
+.ShowReportContainer,
+.StudentInfoContainer,
+.ReportContainer {
     border: 2px solid #ccc;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);

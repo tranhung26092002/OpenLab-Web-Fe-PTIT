@@ -6,7 +6,12 @@ import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 import styles from './Report.module.scss';
 import dayjs from 'dayjs';
-import { Form, Col, Row, List, Tag, Modal, message, Button, Input } from 'antd';
+import { Form, Col, Row, List, Tag, Modal, message, Button, Input, DatePicker, notification, Select } from 'antd';
+import { submitData } from '../../../redux/ReportReducer/ReportReducer';
+const { Option } = Select;
+
+const initialPage = 1;
+const initialPerPage = 10;
 
 const Report = () => {
     const dispatch = useDispatch<DispatchType>();
@@ -16,7 +21,6 @@ const Report = () => {
     const [grade, setGrade] = useState('');
 
     useEffect(() => {
-        // Gọi action để lấy dữ liệu từ backend và cập nhật vào Redux store
         dispatch(getAllReports());
     }, [dispatch]);
 
@@ -40,8 +44,21 @@ const Report = () => {
             message.error('Bạn không có quyền cập nhật điểm số');
             return;
         }
+        if (!grade) {
+            message.error('Bạn chưa nhập điểm số');
+            return;
+        }
 
-        dispatch(updateGrade({ reportId, grade }));
+        dispatch(updateGrade({ reportId, grade }))
+            .then(() => {
+                message.success('Cập nhật điểm thành công!');
+                dispatch(getAllReports());
+            }).catch(() => {
+                notification.error({
+                    message: 'Error',
+                    description: 'Failed to update sensor data'
+                });
+            });
     };
 
     const handleDeleteReport = async (reportId: number) => {
@@ -51,27 +68,59 @@ const Report = () => {
         }
 
         dispatch(deleteReport(reportId))
+            .then(() => {
+                message.success('Xóa báo cáo thành công!');
+                dispatch(getAllReports());
+            }).catch(() => {
+                notification.error({
+                    message: 'Error',
+                    description: 'Failed to update sensor data'
+                });
+            });
     };
 
-    const renderStudentInfo = () => {
+    // Sử dụng useState để khởi tạo và cập nhật giá trị của currentPage và studentsPerPage
+    const [currentPage, setCurrentPage] = useState(initialPage);
+    const [studentsPerPage] = useState(initialPerPage);
+
+    const renderStudentInfo = (reports: any, currentPage: any, studentsPerPage: any) => {
         if (!Array.isArray(reports)) {
             return <div>No reports data available</div>;
         }
+        const reverseReports = [...reports].reverse();
+
+        // Tính chỉ số bắt đầu và chỉ số kết thúc của danh sách sinh viên cho trang hiện tại
+        const startIndex = (currentPage - 1) * studentsPerPage;
+        const endIndex = startIndex + studentsPerPage;
+        const currentStudents = reverseReports.slice(startIndex, endIndex);
 
         return (
             <Fragment>
                 <h2>Thông tin sinh viên</h2>
                 {/* Render student information here */}
-                {reports.map((report, index) => (
+                {currentStudents.map((report, index) => (
                     <div className={styles.StudentInfo} key={index} onClick={() => handleStudentClick(report)}>
                         <p>Họ và tên: {report.student.name}</p>
                         <p>Mã sinh viên: {report.student.studentId}</p>
                         <p>Thời gian nộp bài: {dayjs(report.date).format('DD/MM/YYYY')}</p>
                     </div>
                 ))}
+
+                {/* Render pagination */}
+                <div className={styles.Pagination}>
+                    {Array.from({ length: Math.ceil(reports.length / studentsPerPage) }, (_, i) => (
+                        <button key={i + 1} onClick={() => setCurrentPage(i + 1)}>
+                            {i + 1}
+                        </button>
+                    ))}
+                </div>
             </Fragment>
         );
     };
+
+    // Sử dụng hàm renderStudentInfo với reports và số trang và số lượng sinh viên mỗi trang được chỉ định
+    const studentInfoComponent = renderStudentInfo(reports, currentPage, studentsPerPage);
+
 
     const renderReport = () => {
         if (!selectedStudent) {
@@ -198,6 +247,48 @@ const Report = () => {
         );
     };
 
+    // report
+    const [form] = Form.useForm(); // Use the useForm hook to get the form instance
+
+    const handleSubmit = () => {
+        // Lấy dữ liệu từ form
+        const formData = form.getFieldsValue();
+        const { title, group, nameClass, instructor, practiceSession } = formData;
+        const formattedDate = formData.date ? dayjs(formData.date).format('YYYY-MM-DD') : ''; // Định dạng lại ngày tháng
+
+        const studentName = formData[`studentName`];
+        const studentId = formData[`studentId`];
+
+        if (!title || !group || !nameClass || !instructor || !practiceSession || !studentName || !studentId) {
+            message.error('Chưa nhập đầy đủ thông tin!');
+            return;
+        }
+        // Tiếp tục xử lý khi không có giá trị null
+        const reportData = {
+            title: title,
+            group: group,
+            nameClass: nameClass,
+            date: formattedDate,
+            instructor: instructor,
+            practiceSession: practiceSession,
+            student: { name: studentName, id: studentId } // Thêm thông tin về sinh viên vào đối tượng reportData
+        };
+
+        dispatch(submitData(reportData))
+            .then(() => {
+                notification.success({
+                    message: 'Success',
+                    description: 'Created Successfully'
+                });
+                dispatch(getAllReports());
+            }).catch(() => {
+                notification.error({
+                    message: 'Error',
+                    description: 'Failed to update sensor data'
+                });
+            });
+    };
+
     return (
         <Fragment>
             <Header />
@@ -205,10 +296,104 @@ const Report = () => {
                 <h2>Báo cáo thực hành</h2>
                 <div className={styles.Container}>
                     <div className={styles.ReportContainer}>
+                        <div className={styles.FormContainer}>
+                            <Form layout="vertical" form={form}>
+                                <Row gutter={[16, 16]}>
+                                    <Col span={24}>
+                                        <h2 className={styles.ReportTitle}>Report</h2>
+                                    </Col>
+                                </Row>
+                                <Row gutter={[16, 16]}>
+                                    <Col span={16}>
+                                        <Form.Item name="title" label="Chọn đề tài cho bài thu hoạch cuối khóa">
+                                            <Select placeholder="Chọn đề tài">
+                                                <Option value="Đề tài 1: Hệ thống chiếu sáng thông minh">Đề tài 1: Hệ thống chiếu sáng thông minh</Option>
+                                                <Option value="Đề tài 2: Hệ thống cảnh báo khí Gas thông minh">Đề tài 2: Hệ thống cảnh báo khí Gas thông minh</Option>
+                                                <Option value="Đề tài 3: Hệ thống làm mát thông minh">Đề tài 3: Hệ thống làm mát thông minh</Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item name="date" label="Ngày thực hành">
+                                            <DatePicker format="DD/MM/YYYY" defaultValue={dayjs()} />
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                                <Row gutter={[16, 16]}>
+                                    <Fragment>
+                                        <Col span={8}>
+                                            <Form.Item name="studentName" label="Họ và tên sinh viên">
+                                                <Input placeholder="Nhập họ và tên sinh viên" />
+                                            </Form.Item>
+                                        </Col>
+                                        <Col span={8}>
+                                            <Form.Item name="studentId" label="Mã sinh viên">
+                                                <Input placeholder="Nhập mã sinh viên" />
+                                            </Form.Item>
+                                        </Col>
+                                    </Fragment>
+                                </Row>
+                                <Row gutter={[16, 16]}>
+                                    <Col span={8}>
+                                        <Form.Item name="group" label="Nhóm">
+                                            <Input placeholder="Nhập nhóm" />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item name="nameClass" label="Lớp">
+                                            <Input placeholder="Nhập lớp" />
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                                <Row gutter={[16, 16]}>
+                                    <Col span={8}>
+                                        <Form.Item name="instructor" label="Giảng viên hướng dẫn">
+                                            <Input placeholder="Nhập tên giảng viên hướng dẫn" />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={8}>
+                                        <Form.Item name="practiceSession" label="Ca thực tập">
+                                            <Input placeholder="Nhập ca thực tập" />
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
+                                <Row gutter={[16, 16]}>
+                                    <Col span={24}>
+                                        <h3>Nội dung các bài thực hành:</h3>
+                                        <List
+                                            bordered
+                                            dataSource={exercises}
+                                            renderItem={item => (
+                                                <List.Item>
+                                                    <Row gutter={[16, 16]} align="middle">
+                                                        <Col span={6}>
+                                                            <strong>{item.name}</strong>
+                                                        </Col>
+                                                        <Col span={20}>
+                                                            {item.content}
+                                                        </Col>
+                                                        <Col span={4}>
+                                                            <Tag color={item.evaluation === 'Đạt' ? 'green' : 'red'}>{item.evaluation}</Tag>
+                                                        </Col>
+                                                    </Row>
+                                                </List.Item>
+                                            )}
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row gutter={[16, 16]}>
+                                    <Col span={24} className={styles.SubmitContainer}>
+                                        <Button type="primary" onClick={handleSubmit}>Submit</Button>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        </div>
+                    </div>
+                    <div className={styles.ShowReportContainer}>
                         {renderReport()}
                     </div>
                     <div className={styles.StudentInfoContainer}>
-                        {renderStudentInfo()}
+                        {studentInfoComponent}
                     </div>
                 </div>
             </div>
