@@ -11,6 +11,7 @@ export interface Report {
     practiceSession: string;
     student: { id: number; name: string; studentId: string }
     grade: number;
+    anhCamBien: string;
 }
 
 
@@ -29,7 +30,8 @@ export const submitData = createAsyncThunk(
         date: string;
         instructor: string;
         practiceSession: string;
-        student: { name: string; id: string }
+        student: { name: string; id: string };
+        image: File;
     }, thunkAPI) => {
         try {
             const response = await http.post(`/api/IoT/report/create`, data);
@@ -94,7 +96,7 @@ const sensorReport = createSlice({
 
         builder.addCase(submitData.rejected, (state, action) => {
             state.error = action.error.message || 'Unknown error';
-            history.push("/home/DashBoard");
+            history.push("/home/Report");
         });
 
         builder.addCase(getAllReports.fulfilled, (state, action) => {

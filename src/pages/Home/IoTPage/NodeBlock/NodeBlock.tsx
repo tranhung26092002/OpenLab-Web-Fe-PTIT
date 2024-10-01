@@ -46,7 +46,7 @@ const SensorBlock = () => {
     const navigate = useNavigate();
 
     const handleDetailClick = (id: number) => {
-        navigate(`/home/IoTNode/detailNode?idNode=${id}`);
+        navigate(`/home/IoT/IoTNode/detailNode?idNode=${id}`);
     }
 
     useEffect(() => {

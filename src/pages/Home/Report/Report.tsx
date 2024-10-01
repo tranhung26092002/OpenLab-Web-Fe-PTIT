@@ -6,8 +6,9 @@ import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 import styles from './Report.module.scss';
 import dayjs from 'dayjs';
-import { Form, Col, Row, List, Tag, Modal, message, Button, Input, DatePicker, notification, Select } from 'antd';
+import { Form, Col, Row, List, Tag, Modal, message, Button, Input, DatePicker, notification, Select, UploadFile, Upload } from 'antd';
 import { submitData } from '../../../redux/ReportReducer/ReportReducer';
+import { UploadOutlined } from '@ant-design/icons';
 const { Option } = Select;
 
 const initialPage = 1;
@@ -259,6 +260,8 @@ const Report = () => {
         const studentName = formData[`studentName`];
         const studentId = formData[`studentId`];
 
+        const imageFile = form.getFieldValue('image') && form.getFieldValue('image')[0] && form.getFieldValue('image')[0].originFileObj;
+
         if (!title || !group || !nameClass || !instructor || !practiceSession || !studentName || !studentId) {
             message.error('Chưa nhập đầy đủ thông tin!');
             return;
@@ -271,7 +274,8 @@ const Report = () => {
             date: formattedDate,
             instructor: instructor,
             practiceSession: practiceSession,
-            student: { name: studentName, id: studentId } // Thêm thông tin về sinh viên vào đối tượng reportData
+            student: { name: studentName, id: studentId }, // Thêm thông tin về sinh viên vào đối tượng reportData
+            image: imageFile,
         };
 
         dispatch(submitData(reportData))
@@ -304,7 +308,7 @@ const Report = () => {
                                     </Col>
                                 </Row>
                                 <Row gutter={[16, 16]}>
-                                    <Col span={16}>
+                                    <Col span={10}>
                                         <Form.Item name="title" label="Chọn đề tài cho bài thu hoạch cuối khóa">
                                             <Select placeholder="Chọn đề tài">
                                                 <Option value="Đề tài 1: Hệ thống chiếu sáng thông minh">Đề tài 1: Hệ thống chiếu sáng thông minh</Option>
@@ -313,47 +317,69 @@ const Report = () => {
                                             </Select>
                                         </Form.Item>
                                     </Col>
-                                    <Col span={8}>
+                                    <Col span={4}>
                                         <Form.Item name="date" label="Ngày thực hành">
                                             <DatePicker format="DD/MM/YYYY" defaultValue={dayjs()} />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={4}>
+                                        <Form.Item
+                                            label="Image"
+                                            name="image"
+                                            rules={[{ required: true, message: 'Please upload an image!' }]}
+                                            valuePropName="fileList"
+                                            getValueFromEvent={normFile}
+                                        >
+                                            <Upload
+                                                name="image"
+                                                listType="picture"
+                                                maxCount={1}
+                                                beforeUpload={(file: UploadFile) => {
+                                                    // mô phỏng việc upload, không thực sự gửi file lên server
+                                                    console.log("File được chọn:", file);
+                                                    return false; // Trả về false để ngăn chặn việc gửi yêu cầu HTTP
+                                                }}
+                                            >
+                                                <>
+                                                    <Button icon={<UploadOutlined />}>Upload</Button>
+                                                </>
+                                            </Upload>
                                         </Form.Item>
                                     </Col>
                                 </Row>
                                 <Row gutter={[16, 16]}>
                                     <Fragment>
-                                        <Col span={8}>
+                                        <Col span={6}>
                                             <Form.Item name="studentName" label="Họ và tên sinh viên">
                                                 <Input placeholder="Nhập họ và tên sinh viên" />
                                             </Form.Item>
                                         </Col>
-                                        <Col span={8}>
+                                        <Col span={6}>
                                             <Form.Item name="studentId" label="Mã sinh viên">
                                                 <Input placeholder="Nhập mã sinh viên" />
+                                            </Form.Item>
+                                        </Col>
+                                        <Col span={6}>
+                                            <Form.Item name="nameClass" label="Lớp">
+                                                <Input placeholder="Nhập lớp" />
                                             </Form.Item>
                                         </Col>
                                     </Fragment>
                                 </Row>
                                 <Row gutter={[16, 16]}>
-                                    <Col span={8}>
-                                        <Form.Item name="group" label="Nhóm">
-                                            <Input placeholder="Nhập nhóm" />
-                                        </Form.Item>
-                                    </Col>
-                                    <Col span={8}>
-                                        <Form.Item name="nameClass" label="Lớp">
-                                            <Input placeholder="Nhập lớp" />
-                                        </Form.Item>
-                                    </Col>
-                                </Row>
-                                <Row gutter={[16, 16]}>
-                                    <Col span={8}>
+                                    <Col span={6}>
                                         <Form.Item name="instructor" label="Giảng viên hướng dẫn">
                                             <Input placeholder="Nhập tên giảng viên hướng dẫn" />
                                         </Form.Item>
                                     </Col>
-                                    <Col span={8}>
+                                    <Col span={6}>
                                         <Form.Item name="practiceSession" label="Ca thực tập">
                                             <Input placeholder="Nhập ca thực tập" />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col span={6}>
+                                        <Form.Item name="group" label="Nhóm">
+                                            <Input placeholder="Nhập nhóm" />
                                         </Form.Item>
                                     </Col>
                                 </Row>
@@ -400,6 +426,13 @@ const Report = () => {
             <Footer />
         </Fragment>
     );
+}
+
+function normFile(e: any) {
+    if (Array.isArray(e)) {
+        return e;
+    }
+    return e && e.fileList;
 }
 
 export default Report;

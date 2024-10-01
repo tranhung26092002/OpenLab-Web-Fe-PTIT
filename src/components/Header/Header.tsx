@@ -74,12 +74,11 @@ const Header: React.FC = () => {
                 </div>
                 <div className={styles.navigation}>            
                     <NavLink to="/home" className={styles.link}>TRANG CHỦ</NavLink><br />
-                    <NavLink to="/home/IoTNode" className={styles.link}>LỚP THIẾT BỊ</NavLink><br />
-                    <NavLink to="/home/IoTGateway" className={styles.link}>LỚP MẠNG</NavLink><br />
-                    <NavLink to="/home/IoTCloud" className={styles.link}>LỚP ỨNG DỤNG</NavLink><br />
+                    <NavLink to="/home/IoT" className={styles.link}>TÀI LIỆU</NavLink><br />
                     <NavLink to="/home/DashBoard" className={styles.link}>DASHBOARD</NavLink><br />
                     <NavLink to="/home/BrokerMQTT" className={styles.link}>BrokerMQTT</NavLink><br />
                     <NavLink to="/home/Report" className={styles.link}>REPORT</NavLink><br />
+                    <NavLink to="/home/DeviceManager" className={styles.link}>DEVICEMANAGER</NavLink><br />
                 </div>
                 <div className={styles.redLine}>
 

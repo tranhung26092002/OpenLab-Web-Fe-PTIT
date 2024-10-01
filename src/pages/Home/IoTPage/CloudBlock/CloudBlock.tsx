@@ -42,7 +42,7 @@ const PeripheralBlock = () => {
     const navigate = useNavigate();
 
     const handleDetailClick = (id: number) => {
-        navigate(`/home/IoTCloud/detailCloud?idCloud=${id}`);
+        navigate(`/home/IoT/IoTCloud/detailCloud?idCloud=${id}`);
     }
     
     useEffect(() => {

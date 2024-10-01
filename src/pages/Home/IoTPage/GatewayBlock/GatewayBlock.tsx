@@ -41,7 +41,7 @@ const ControllerBlock = () => {
     const navigate = useNavigate();
 
     const handleDetailClick = (id: number) => {
-        navigate(`/home/IoTGateway/detailGateway?idGateway=${id}`);
+        navigate(`/home/IoT/IoTGateway/detailGateway?idGateway=${id}`);
     }
 
     useEffect(() => {

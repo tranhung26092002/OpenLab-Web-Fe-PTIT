@@ -15,11 +15,15 @@ import { Home } from './pages/Home/Home';
 import AuthGuard from './components/AuthGuard';
 import AdminPage from './pages/AdminPage/AdminPage';
 
+import IoTPage from './pages/Home/IoTPage/IoTPage';
+
 import DashBoard from './pages/Home/DashBoard/DashBoard';
 
 import BrokerMQTT from './pages/Home/BrokerMQTT/BrokerMQTT';
 
 import Report from './pages/Home/Report/Report';
+
+import DeviceManager from './pages/Home/DeviceManager/DeviceManager';
 
 import Sensor from './pages/Home/DashBoard/Sensor/Sensor';
 
@@ -48,24 +52,28 @@ root.render(
 
         <Route path='/admin' element={<AuthGuard><AdminPage /></AuthGuard>}></Route>
 
+        <Route path="/home/IoT" element={<AuthGuard><IoTPage /></AuthGuard>}></Route>
+
         <Route path="/home/DashBoard" element={<AuthGuard><DashBoard /></AuthGuard>}></Route>
 
         <Route path="/home/BrokerMQTT" element={<AuthGuard><BrokerMQTT /></AuthGuard>}></Route>
 
         <Route path="/home/Report" element={<AuthGuard><Report /></AuthGuard>}></Route>
 
+        <Route path="/home/DeviceManager" element={<AuthGuard><DeviceManager /></AuthGuard>}></Route>
+
         <Route path="/home/DashBoard/Sensor" element={<AuthGuard><Sensor /></AuthGuard>}></Route>
 
         <Route path="/home/DashBoard/Actuator" element={<AuthGuard><Actuator /></AuthGuard>}></Route>
 
-        <Route path="/home/IoTNode" element={<AuthGuard><NodeBlock /></AuthGuard>}></Route>
-        <Route path="/home/IoTNode/detailNode" element={<AuthGuard><DetailNodeBlockPage /></AuthGuard>}></Route>
+        <Route path="/home/IoT/IoTNode" element={<AuthGuard><NodeBlock /></AuthGuard>}></Route>
+        <Route path="/home/IoT/IoTNode/detailNode" element={<AuthGuard><DetailNodeBlockPage /></AuthGuard>}></Route>
 
-        <Route path="/home/IoTGateway" element={<AuthGuard><GatewayBlock /></AuthGuard>}></Route>
-        <Route path="/home/IoTGateway/detailGateway" element={<AuthGuard><DetailGatewayBlockPage /></AuthGuard>}></Route>
+        <Route path="/home/IoT/IoTGateway" element={<AuthGuard><GatewayBlock /></AuthGuard>}></Route>
+        <Route path="/home/IoT/IoTGateway/detailGateway" element={<AuthGuard><DetailGatewayBlockPage /></AuthGuard>}></Route>
 
-        <Route path="/home/IoTCloud" element={<AuthGuard><CloudBlock /></AuthGuard>}></Route>
-        <Route path="/home/IoTCloud/detailCloud" element={<AuthGuard><DetailCloudBlockPage /></AuthGuard>}></Route>
+        <Route path="/home/IoT/IoTCloud" element={<AuthGuard><CloudBlock /></AuthGuard>}></Route>
+        <Route path="/home/IoT/IoTCloud/detailCloud" element={<AuthGuard><DetailCloudBlockPage /></AuthGuard>}></Route>
 
         {/* <Route path='/boxchat' element={<FirebaseAuthGuard><ChatComponent /></FirebaseAuthGuard>}></Route> */}
 
