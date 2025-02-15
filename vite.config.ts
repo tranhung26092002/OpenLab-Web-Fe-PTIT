@@ -8,24 +8,24 @@ export default defineConfig({
     port: 4000,
     proxy: {
       '/mqtt/ws': {
-        target: `http://localhost:8085`,
+        target: `http://14.225.255.177:8085`,
         changeOrigin: true,
         ws: true,
         secure: false,
         configure: (proxy) => {
           proxy.on('proxyReq', (proxyReq) => {
-            proxyReq.setHeader('Origin', 'http://localhost:4000'); // Địa chỉ frontend cụ thể
+            proxyReq.setHeader('Origin', 'http://14.225.255.177:4000'); // Địa chỉ frontend cụ thể
           });
         },
       },
       '/notification/ws': {
-        target: `http://localhost:8085`,
+        target: `http://14.225.255.177:8085`,
         changeOrigin: true,
         ws: true,
         secure: false,
         configure: (proxy) => {
           proxy.on('proxyReq', (proxyReq) => {
-            proxyReq.setHeader('Origin', 'http://localhost:4000'); // Địa chỉ frontend cụ thể
+            proxyReq.setHeader('Origin', 'http://14.225.255.177:4000'); // Địa chỉ frontend cụ thể
           });
         },
       }
