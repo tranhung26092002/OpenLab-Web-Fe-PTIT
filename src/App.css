@@ -1,0 +1,356 @@
+/* Sitting */
+
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8faf6;
+    --text-primary: #4f6f52;
+    --text-secondary: #739072;
+    --border-color: #86a789;
+    --card-bg: #ffffff;
+}
+
+.dark {
+    --bg-primary: #2c4a2d;
+    --bg-secondary: #3a5a40;
+    --text-primary: #d2e3c8;
+    --text-secondary: #86a789;
+    --border-color: #86a789;
+    --card-bg: #3a5a40;
+}
+
+/* Theme transitions */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode overrides */
+.dark .ant-card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+.dark .ant-divider {
+    border-color: var(--border-color);
+}
+
+.dark .ant-typography {
+    color: var(--text-primary);
+}
+
+.dark .ant-switch {
+    background-color: var(--text-secondary);
+}
+
+/* NProgress styles */
+#nprogress {
+    pointer-events: none;
+}
+
+#nprogress .bar {
+    background: var(--text-primary);
+    height: 3px;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px var(--text-primary), 0 0 5px var(--text-primary);
+}
+
+/* Route transition animations */
+.fade-enter {
+    opacity: 0;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 200ms ease-in;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 200ms ease-in;
+}
+
+/* Main app */
+
+.header {
+    padding: 20px 24px;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 120px;
+}
+
+.content {
+    margin: 24px 16px;
+    padding: 20px;
+}
+
+.triger-btn {
+    font-size: 16px;    /* Decreased from 18px */
+    width: 45px;        /* Decreased from 60px */
+    height: 45px;       /* Decreased from 60px */
+    position: fixed;
+    bottom: 12px;       /* Adjusted from 15px */
+    left: 12px;         /* Adjusted from 15px */
+}
+
+
+/* Sider */
+
+.sider {
+    height: 100vh;
+    position: sticky !important;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    min-width: 250px !important;
+}
+
+.ant-menu-item {
+    font-size: 18px !important;
+    height: 56px !important;
+    line-height: 56px !important;
+    font-weight: 500 !important;
+    padding: 0 24px !important;
+}
+
+.ant-menu-submenu-title {
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    height: 56px !important;
+    line-height: 56px !important;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 40px 0;
+}
+
+.menu-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-weight: 600;
+    padding: 0 12px;
+}
+.ant-menu-item-selected {
+    background-color: #4f6f52 !important;
+    color: #fff !important;
+}
+
+/* Header */
+.header-icon {
+    background: #d2e3c8;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 15px;
+    color: #4f6f52;
+    cursor: pointer;
+}
+
+/* button, and color */
+
+.ant-btn:hover {
+    color: #4f6f52 !important;
+    border-color: #4f6f52 !important;
+}
+
+.ant-btn-primary {
+    background-color: #4f6f52 !important;
+}
+
+.ant-btn-primary:hover {
+    color: #173a1a !important;
+    border-color: #fff !important;
+}
+
+/* Primary Theme Colors */
+.primary--color {
+    color: #4f6f52 !important;
+    /* Main green */
+}
+
+.primary--light--color {
+    color: #739072 !important;
+    /* Lighter green */
+}
+
+.secondary--color {
+    color: #86a789 !important;
+    /* Accent green */
+}
+
+.light--color {
+    color: #d2e3c8 !important;
+    /* Lightest green */
+}
+
+/* Forest Tones */
+.forest--dark--color {
+    color: #2c4a2d !important;
+    /* Darkest green */
+}
+
+.pine--color {
+    color: #3a5a40 !important;
+    /* Deep forest green */
+}
+
+/* Natural Greens */
+.moss--color {
+    color: #6b8e4e !important;
+    /* Rich moss */
+}
+
+.sage--color {
+    color: #95a88c !important;
+    /* Muted sage */
+}
+
+.fern--color {
+    color: #85ab8d !important;
+    /* Soft fern */
+}
+
+.olive--color {
+    color: #708238 !important;
+    /* Warm olive */
+}
+
+.mint--color {
+    color: #98b4a6 !important;
+    /* Cool mint */
+}
+
+/* Neutral Colors */
+.gray--color {
+    color: rgb(183, 181, 181) !important;
+    /* Standard gray */
+}
+
+.black--color {
+    color: #000 !important;
+    /* Pure black */
+}
+
+.earth--color {
+    color: #796e65 !important;
+    /* Warm brown */
+}
+
+.stone--color {
+    color: #8b8589 !important;
+    /* Cool gray */
+}
+
+/* Loading Animation */
+#nprogress .bar {
+    background: #4f6f52 !important;
+    height: 3px !important;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px #4f6f52, 0 0 5px #4f6f52 !important;
+}
+
+.content {
+    position: relative;
+    min-height: calc(100vh - 64px - 70px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-enter {
+    animation: fadeIn 0.2s ease-in;
+}
+
+.backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Course */
+
+/* Add to your existing CSS */
+.course-card-animation {
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+.course-grid {
+    display: grid;
+    gap: 2rem;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.filter-section {
+    background: linear-gradient(to right, #2c4a2d, #3a5a40);
+}
+
+.course-card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+/* Profile */
+
+.profile-modal .ant-modal-content {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.profile-modal .ant-descriptions-item-label {
+    width: 150px;
+}
+
+/* Plant lists */
+
+.plant-card {
+    flex: 1;
+    height: 250px;
+    text-align: center;
+}
+
+/* Seller lists */
+.top-seller,
+.featured-seller {
+    flex: 1;
+}
+
+.divider {
+    border: 2px solid green;
+    height: 50px;
+}
+
+.card {
+    background-image: linear-gradient(to bottom, #4c7f79, #87e8de);
+}

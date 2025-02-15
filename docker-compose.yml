@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  react-app:
+    build: .
+    container_name: small-kit
+    image: small-kit:latest  # Đặt tên image duy nhất
+    ports:
+      - "4000:4000"  # Ánh xạ cổng 4000
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    driver: bridge
