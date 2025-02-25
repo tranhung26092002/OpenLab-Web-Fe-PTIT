@@ -43,12 +43,12 @@ const CustomHeader: React.FC = () => {
           textShadow: '0 2px 4px rgba(0,0,0,0.15)',
         }}
       >
-        Welcome to IoT Lab - PTIT
+        Thực hành lập trình nhúng IoT OpenKIT-B
       </Typography.Title>
 
       {/* Right section - Search & Controls */}
       <Space align="center" size={24}>
-        <SearchComponent onSearch={onSearch} />
+        {/* <SearchComponent onSearch={onSearch} /> */}
         <MessageDropdown />
         <Badge
           count={unreadNotifications.length}

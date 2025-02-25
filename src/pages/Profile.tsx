@@ -22,23 +22,23 @@ const Profile: React.FC<ProfileProps> = ({ isOpen, onClose }) => {
   const [avatarPreview, setAvatarPreview] = useState<string>('');
   const { imageUrl, isLoading: isLoadingAvatar } = useAvatar(me?.avatarUrl);
 
-  useEffect(() => {
-    if (isOpen && getMe) {
-      getMe().catch(err => {
-        console.error('Failed to fetch user profile:', err);
-        navigate("/login");
-      });
-    }
-  }, [isOpen, getMe, navigate]);
+  // useEffect(() => {
+  //   if (isOpen && getMe) {
+  //     getMe().catch(err => {
+  //       console.error('Failed to fetch user profile:', err);
+  //       navigate("/login");
+  //     });
+  //   }
+  // }, [isOpen, getMe, navigate]);
 
-  useEffect(() => {
-    if (me) {
-      form.setFieldsValue({
-        ...me,
-        dateOfBirth: me.dateOfBirth ? dayjs(me.dateOfBirth) : undefined
-      });
-    }
-  }, [me, form]);
+  // useEffect(() => {
+  //   if (me) {
+  //     form.setFieldsValue({
+  //       ...me,
+  //       dateOfBirth: me.dateOfBirth ? dayjs(me.dateOfBirth) : undefined
+  //     });
+  //   }
+  // }, [me, form]);
 
 
   const handleAvatarChange = (info: { file: File }) => {

@@ -57,42 +57,42 @@ const Sidebar: React.FC = () => {
   };
 
   const getBaseMenuItems = (): MenuItem[] => [
-    {
-      key: "/",
-      icon: <HomeOutlined />,
-      label: "Home",
-      path: "/",
-    },
-    {
-      key: "/about",
-      icon: <UserOutlined />,
-      label: "About",
-      path: "/about",
-    },
-    {
-      key: "/contact",
-      icon: <ContactsOutlined />,
-      label: "Contact",
-      path: "/contact",
-    },
+    // {
+    //   key: "/",
+    //   icon: <HomeOutlined />,
+    //   label: "Home",
+    //   path: "/",
+    // },
+    // {
+    //   key: "/about",
+    //   icon: <UserOutlined />,
+    //   label: "About",
+    //   path: "/about",
+    // },
+    // {
+    //   key: "/contact",
+    //   icon: <ContactsOutlined />,
+    //   label: "Contact",
+    //   path: "/contact",
+    // },
     {
       key: "/dashboard",
       icon: <DashboardOutlined />,
       label: "Dashboard",
       path: "/dashboard",
     },
-    {
-      key: "/setting",
-      icon: <SettingOutlined />,
-      label: "Setting",
-      path: "/setting",
-    },
-    {
-      key: "/login",
-      icon: <LoginOutlined />,
-      label: "Login",
-      path: "/login",
-    }
+    // {
+    //   key: "/setting",
+    //   icon: <SettingOutlined />,
+    //   label: "Setting",
+    //   path: "/setting",
+    // },
+    // {
+    //   key: "/login",
+    //   icon: <LoginOutlined />,
+    //   label: "Login",
+    //   path: "/login",
+    // }
   ];
 
   const menuItems: MenuItem[] = [
