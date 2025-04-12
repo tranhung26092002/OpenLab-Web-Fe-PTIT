@@ -18,20 +18,20 @@ export const DeviceControlCard: React.FC<DeviceControlCardProps> = ({
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.1 }}
-            className="w-full md:w-1/3 lg:w-1/5 p-2"
+            className="w-full h-full"
         >
             <Card
-                className="shadow-md hover:shadow-lg transition-shadow duration-300"
+                className="shadow-md hover:shadow-lg transition-shadow duration-300 h-full"
                 bordered={false}
             >
-                <div className="flex flex-col items-center space-y-4">
+                <div className="flex flex-col items-center justify-center space-y-4 py-2">
                     <div className={`
-            text-3xl
+            text-2xl sm:text-3xl lg:text-4xl
             ${status ? 'text-green-500' : 'text-gray-400'}
           `}>
                         {icon}
                     </div>
-                    <div className="text-lg font-medium text-gray-700">{name}</div>
+                    <div className="text-base sm:text-lg lg:text-xl font-medium text-gray-700">{name}</div>
                     <Switch
                         checked={status === 1}
                         onChange={onToggle}

@@ -27,25 +27,26 @@ export const SensorChart: React.FC<SensorChartProps> = ({
                 title={name.charAt(0).toUpperCase() + name.slice(1)}
                 className="shadow-lg hover:shadow-xl transition-shadow duration-300"
                 bordered={false}
+                headStyle={{ fontSize: '1rem', fontWeight: 600 }}
             >
-                <div className="h-[300px]">
+                <div className="h-[250px] sm:h-[300px]">
                     <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={data}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis
                                 dataKey="time"
-                                tick={{ fontSize: 12 }}
+                                tick={{ fontSize: 11 }}
                                 interval="preserveStartEnd"
                             />
-                            <YAxis tick={{ fontSize: 12 }} />
+                            <YAxis tick={{ fontSize: 11 }} />
                             <Tooltip />
                             <Line
                                 type="monotone"
                                 dataKey="value"
                                 stroke={color}
                                 strokeWidth={2}
-                                dot={{ r: 4 }}
-                                activeDot={{ r: 6 }}
+                                dot={{ r: 3 }}
+                                activeDot={{ r: 5 }}
                                 animationDuration={1500}
                             />
                         </LineChart>

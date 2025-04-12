@@ -8,14 +8,14 @@ import { handleSuccess, handleApiError } from '../utils/notificationHandlers';
 export const useUsers = (page = 0, size = 10) => {
     const queryClient = useQueryClient();
 
-    // Fetch all users with pagination
-    const { data: users, isLoading } = useQuery<PageResponse<User>>({
-        queryKey: ['users', page, size],
-        queryFn: async () => {
-            const response = await userService.getUsers(page, size);
-            return response.data;
-        }
-    });
+    // // Fetch all users with pagination
+    // const { data: users, isLoading } = useQuery<PageResponse<User>>({
+    //     queryKey: ['users', page, size],
+    //     queryFn: async () => {
+    //         const response = await userService.getUsers(page, size);
+    //         return response.data;
+    //     }
+    // });
 
     // Get current user
     const { data: me, isLoading: isLoadingMe, refetch: getMe } = useQuery({
@@ -106,7 +106,7 @@ export const useUsers = (page = 0, size = 10) => {
 
     return {
         // Data
-        users,
+        // users,
         me,
 
         // Methods
@@ -119,7 +119,7 @@ export const useUsers = (page = 0, size = 10) => {
         deleteUser: deleteUserMutation.mutate,
 
         // Loading states
-        isLoading,
+        // isLoading,
         isLoadingMe,
         isAddingUser: addUserMutation.isPending,
         isUpdatingUser: updateUserMutation.isPending,

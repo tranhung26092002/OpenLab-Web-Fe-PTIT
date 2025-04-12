@@ -7,10 +7,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 
 // Lazy load components
 const Home = React.lazy(() => import('./pages/Home'));
-const About = React.lazy(() => import('./pages/About'));
 const Login = React.lazy(() => import('./pages/Login'));
-const Contact = React.lazy(() => import('./pages/Contact'));
-const Setting = React.lazy(() => import('./pages/Setting'));
 const Dashboard = React.lazy(() => import('./pages/Dashboard'));
 const DashboardDetail = React.lazy(() => import('./pages/DashboardDetail'));
 
@@ -28,11 +25,6 @@ const App: React.FC = () => {
               {/* Public Routes */}
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-
-              {/* Protected Routes */}
-                <Route path="/setting" element={<Setting />} />
 
               {/* Admin Route */}
                 <Route path="/dashboard" element={<Dashboard />} />

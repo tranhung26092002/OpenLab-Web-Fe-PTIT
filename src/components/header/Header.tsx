@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Avatar, Space, Typography, Spin, Badge } from "antd";
+import { Avatar, Space, Typography, Spin, Badge, Image } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Profile from "../../pages/Profile";
 import { motion } from "framer-motion";
 import { MessageDropdown } from "./MessageDropdown";
 import { NotificationDropdown } from "./NotificationDropdown";
-import { SearchComponent } from "./SearchBar";
 import { useAvatar } from "../../hooks/useAvatar";
 import { useUsers } from "../../hooks/useUsers";
 import { useNotification } from "../../hooks/useNotification";
+import logo from '../../assets/login/logo-ptit.png'
 
 const CustomHeader: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,49 +27,71 @@ const CustomHeader: React.FC = () => {
     <Space
       direction="horizontal"
       align="center"
-      style={{
-        width: "100%",
-        justifyContent: "space-between",
-        padding: "16px 32px"
-      }}
+      className="w-full justify-between px-4 sm:px-6 lg:px-8 py-2 sm:py-3"
     >
-      {/* Left section - Title */}
-      <Typography.Title
-        level={1}
-        className="!m-0 forest--dark--color"
-        style={{
-          fontSize: '36px',
-          fontWeight: 700,
-          textShadow: '0 2px 4px rgba(0,0,0,0.15)',
-        }}
-      >
-        Thực hành lập trình nhúng IoT OpenKIT-B
-      </Typography.Title>
-
-      {/* Right section - Search & Controls */}
-      <Space align="center" size={24}>
-        {/* <SearchComponent onSearch={onSearch} /> */}
-        <MessageDropdown />
-        <Badge
-          count={unreadNotifications.length}
-          size="default"  // Changed from "large" to "default"
-          style={{ fontSize: '16px' }}
-        >
-          <NotificationDropdown
-            notifications={notifications}
-            isLoading={isNotificationLoading}
+      {/* Logo section */}
+      <div className="flex items-center">
+        <div className="w-12 h-12 sm:w-14 sm:h-14">
+          <Image 
+            src={logo} 
+            alt="Logo" 
+            preview={false}
+            className="w-full h-full object-contain" 
           />
-        </Badge>
+        </div>
+      </div>
+
+      {/* Title section */}
+      <div className="flex-1 mx-4">
+        <Typography.Title
+          level={3}
+          className="!m-0 text-center"
+          style={{
+            fontSize: 'clamp(16px, 1.8vw, 24px)',
+            fontWeight: 600,
+            color: '#2c4a2d'
+          }}
+        > 
+          <div className="text-lg sm:text-xl lg:text-2xl mb-0">Open-Day</div>
+          <div className="text-xs sm:text-sm lg:text-base opacity-85 hidden sm:block">
+            Thực hành lập trình nhúng IoT OpenKIT-B
+          </div>
+        </Typography.Title>
+      </div>
+
+      {/* Controls section */}
+      <div className="flex items-center gap-3 sm:gap-4 lg:gap-6">
+        <div className="hidden sm:block">
+          <MessageDropdown />
+        </div>
+        <div className="hidden sm:block">
+          <Badge
+            count={unreadNotifications.length}
+            size="small"
+            className="cursor-pointer"
+          >
+            <NotificationDropdown
+              notifications={notifications}
+              isLoading={isNotificationLoading}
+            />
+          </Badge>
+        </div>
         <motion.div whileHover={{ scale: 1.05 }}>
           <Avatar
-            size={48}
-            icon={isAvatarLoading ? <Spin /> : <UserOutlined style={{ fontSize: '24px' }} />}
+            size={{ xs: 32, sm: 36, lg: 40 }}
+            icon={
+              isAvatarLoading ? (
+                <Spin size="small" />
+              ) : (
+                <UserOutlined className="text-lg sm:text-xl" />
+              )
+            }
             src={!isAvatarLoading ? imageUrl : undefined}
-            className="cursor-pointer hover:opacity-80 transition-opacity"
+            className="cursor-pointer hover:opacity-80 transition-opacity shadow-sm"
             onClick={() => setIsModalOpen(true)}
           />
         </motion.div>
-      </Space>
+      </div>
 
       <Profile isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </Space>
