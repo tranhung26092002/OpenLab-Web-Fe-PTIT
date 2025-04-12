@@ -55,7 +55,7 @@ const CustomHeader: React.FC = () => {
           <div className="text-lg sm:text-xl lg:text-2xl mb-0">Open-Day</div>
           <div className="text-xs sm:text-sm lg:text-base opacity-85 hidden sm:block">
             Thực hành lập trình nhúng IoT OpenKIT-B
-          </div>
+          </div>  
         </Typography.Title>
       </div>
 

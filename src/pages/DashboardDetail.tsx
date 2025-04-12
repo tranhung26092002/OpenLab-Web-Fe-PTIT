@@ -111,7 +111,7 @@ useEffect(() => {
 
   return (
     <>
-      <Header className="header sticky top-0 z-50 bg-white shadow-sm">
+      <Header className="header sticky top-0 z-50 bg-white shadow-sm h-24">
         <CustomHeader />
       </Header>
       <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 lg:space-y-8 bg-gradient-to-br from-[#d2e3c8] via-[#86a789] to-[#4f6f52] min-h-screen">
